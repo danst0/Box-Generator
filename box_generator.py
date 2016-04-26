@@ -1,20 +1,23 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
 """box_generator
 Generator for Boxes with in either castled or uncastled style. Output as DXF.
 
 Usage:
   box_generator.py
+  box_generator.py <width> <height> <depth> <thickness> (--castled|--uncastled)
   box_generator.py (-h | --help)
   box_generator.py --version
 
 Options:
-  -h --help     Show this screen.
-  --version     Show version.
+  -c --castled      Castled box
+  -u --uncastled    Uncastled box
+  -h --help         Show this screen.
+  --version         Show version.
   
 """
 
-import docot
+from docopt import docopt
 
 def new_drawing(name):
     fheader = open("template.dxf", "r")
@@ -135,15 +138,32 @@ def pretty_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout):
 
 if __name__ == "__main__":
     arguments = docopt(__doc__, version='Box Generator 0.1')
-    print(arguments)
+    #print(arguments)
     
-    print "The dimensions are the desired inner dimensions of the box in mm."
+    print("The dimensions are the desired inner dimensions of the box in mm.")
+    if arguments['<width>']:
+        w = float(arguments['<width>'])
+    else:
+        w = float(input("\nWidth: "))
+    if arguments['<depth>']:
+        d = float(arguments['<depth>'])
+    else:
+        d = float(input("\nDepth: "))
+    if arguments['<height>']:
+        h = float(arguments['<height>'])
+    else:
+        h = float(input("\nHeight: "))
+    if arguments['<thickness>']:
+        tk = float(arguments['<thickness>'])
+    else:
+        tk = float(input("\nThickness of Material: "))
     
-    w = float(input("\nWidth: "))
-    d = float(input("\nDepth: "))
-    h = float(input("\nHeight: "))
-    tk = float(input("\nThickness of Material: "))
-    shape = raw_input("\nCastled? (y/n): ")
+    if arguments['--castled']:
+         shape = 'y'
+    elif arguments['--uncastled']:
+        shape = 'n'
+    else:
+        shape = input("\nCastled? (y/n): ")
     
     
     if (shape[0] == 'y'):
@@ -207,8 +227,8 @@ if __name__ == "__main__":
                               3*tk, tk, 0, 0, drawing3)
                     save(drawing3)
         else:
-            print "More than 2 dimensions are greater than 18 inches. This piece"+\
-                  " cannot fit on the laser cutter bed."
+            print("More than 2 dimensions are greater than 18 inches. This piece"+\
+                  " cannot fit on the laser cutter bed.")
             input()
     
     else:

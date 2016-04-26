@@ -60,3 +60,5 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+box1.dxf
+box2.dxf
