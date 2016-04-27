@@ -165,7 +165,8 @@ if __name__ == "__main__":
     else:
         shape = input("\nCastled? (y/n): ")
     
-    
+    print('Processing input...')
+        
     if (shape[0] == 'y'):
         rectangle = lambda p1x, p1y, p2x, p2y, th, lr, tb, fout: \
                     castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout)
@@ -176,6 +177,26 @@ if __name__ == "__main__":
     dim = [w, d, h]
     dim.sort()
     dim.reverse()
+    
+
+    print('Generating output...')
+    
+    #drawing = new_drawing('box1.dxf')
+    #rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing)
+    #rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
+    #          + 2*tk, tk, 1, 0, drawing)
+    #drawing2 = new_drawing('box2.dxf')
+    #rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing2)
+    #rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
+    #          + 2*tk, tk, 1, 0, drawing2)
+
+    #save(drawing)
+    #save(drawing2)
+    #drawing3 = new_drawing('box3.dxf')
+    #rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing3)
+    #rectangle(tk, dim[2]+3*tk, dim[1]+tk, 2*dim[2]+3*tk,\
+    #          tk, 0, 0, drawing3)
+    #save(drawing3)
     
     if ((dim[0] + 2*tk)>18):
         if ((dim[1] + 3*tk + dim[2])<=18):
@@ -267,4 +288,6 @@ if __name__ == "__main__":
                 save(drawing2)
 
 
+    
+    print('Done.')
     
