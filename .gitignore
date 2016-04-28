@@ -62,4 +62,6 @@ target/
 .ipynb_checkpoints
 box1.dxf
 box2.dxf
-*.dxf
+box1.bak000.dxf
+box3.dxf
+~box2.dxf
