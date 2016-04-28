@@ -181,111 +181,20 @@ if __name__ == "__main__":
 
     print('Generating output...')
     
-    #drawing = new_drawing('box1.dxf')
-    #rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing)
-    #rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
-    #          + 2*tk, tk, 1, 0, drawing)
-    #drawing2 = new_drawing('box2.dxf')
-    #rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing2)
-    #rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
-    #          + 2*tk, tk, 1, 0, drawing2)
 
-    #save(drawing)
-    #save(drawing2)
-    #drawing3 = new_drawing('box3.dxf')
-    #rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing3)
-    #rectangle(tk, dim[2]+3*tk, dim[1]+tk, 2*dim[2]+3*tk,\
-    #          tk, 0, 0, drawing3)
-    #save(drawing3)
+    drawing = new_drawing('box.dxf')
+    rectangle(tk, tk, dim[1]+tk, dim[0]+tk, tk, 1, 1, drawing)
+    rectangle(dim[1]+2*tk, tk, dim[1]+dim[2]+2*tk, dim[0]+tk, tk, 0, 1, drawing)
     
-    if ((dim[0] + 2*tk)>18):
-        if ((dim[1] + 3*tk + dim[2])<=18):
-            drawing = new_drawing('box1.dxf')
-            rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing)
-            rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
-                      + 2*tk, tk, 1, 0, drawing)
-            drawing2 = new_drawing('box2.dxf')
-            rectangle(tk, tk, dim[0] + tk, dim[1]+ tk, tk, 1, 1, drawing2)
-            rectangle(tk, dim[1] + 2*tk, dim[0] + tk, dim[1] + dim[2] \
-                      + 2*tk, tk, 1, 0, drawing2)
-            if ((dim[0]+3*tk + dim[2])>32):
-                save(drawing)
-                save(drawing2)
-                drawing3 = new_drawing('box3.dxf')
-                rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing3)
-                rectangle(tk, dim[2]+3*tk, dim[1]+tk, 2*dim[2]+3*tk,\
-                          tk, 0, 0, drawing3)
-                save(drawing3)
-            else:
-                rectangle(dim[0]+2*tk, tk, dim[0]+dim[2]+2*tk, dim[1]+\
-                          tk, tk, 0, 0, drawing)
-                rectangle(dim[0]+2*tk, tk, dim[0]+dim[2]+2*tk, dim[1]+\
-                          tk, tk, 0, 0, drawing2)
-                save(drawing)
-                save(drawing2)
-        elif ((dim[1] + 2*tk)<=18):
-            drawing = new_drawing('box1.dxf')
-            rectangle(tk, tk, dim[0]+tk, dim[1]+tk, tk, 1, 1, drawing)
-            if ((dim[2] + 2*tk)>9):
-                save(drawing)
-                drawing2 = new_drawing('box2.dxf')
-                rectangle(tk, tk, dim[0]+tk, dim[2]+tk, tk, 1, 0, drawing2)
-                save(drawing2)
-                drawing3 = new_drawing('box3.dxf')
-                rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing3)
-                save(drawing3)
-            else:
-                drawing2 = new_drawing('box2.dxf')
-                rectangle(tk, tk, dim[0]+tk, dim[2]+tk, tk, 1, 0, drawing2)
-                rectangle(tk, dim[2]+3*tk, dim[0]+tk, 2*dim[2]+2*tk, \
-                          tk, 1, 0, drawing2)
-                save(drawing2)
-                if ((dim[0] + 3*tk + dim[1])>32):
-                    save(drawing)
-                    drawing3 = new_drawing('box3.dxf')
-                    rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing3)
-                    rectangle(tk, dim[2]+3*tk, dim[1]+tk, 2*dim[2]+\
-                              3*tk, tk, 0, 0, drawing3)
-                    save(drawing3)
-        else:
-            print("More than 2 dimensions are greater than 18 inches. This piece"+\
-                  " cannot fit on the laser cutter bed.")
-            input()
-    
-    else:
-        drawing = new_drawing('box1.dxf')
-        rectangle(tk, tk, dim[1]+tk, dim[0]+tk, tk, 1, 1, drawing)
-        rectangle(dim[1]+2*tk, tk, dim[1]+dim[2]+2*tk, dim[0]+tk, tk, 0, 1, drawing)
-        if ((dim[1]+dim[2]+ 2*tk) < 18):
-            rectangle(dim[1]+dim[2]+3*tk, tk, 2*dim[1]+dim[2]+3*tk, dim[0]+tk, tk,\
-                      1, 1, drawing)
-            rectangle(2*dim[1]+dim[2]+4*tk, tk, 2*dim[1]+2*dim[2]+\
-                      4*tk, dim[0]+tk, tk, 0, 1, drawing)
-            if ((dim[0]+dim[2]+3*tk) < 18):
-                rectangle(tk, dim[0]+2*tk, dim[1]+tk, dim[0]+\
-                          dim[2]+2*tk, tk, 0, 0, drawing)
-                rectangle(dim[1]+dim[2]+3*tk, dim[0]+2*tk, 2*dim[1]+\
-                          dim[2]+3*tk, dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
-                save(drawing)
-            else:
-                save(drawing)
-                drawing2 = new_drawing('box2.dxf')
-                rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing2)
-                rectangle(dim[1]+2*tk, tk, 2*(dim[1]+tk), dim[2]+tk, \
-                          tk, 0, 0, drawing2)
-                save(drawing2)
-        else:
-            if ((dim[1]+2*dim[2]+4*tk) < 36):
-                rectangle(dim[1]+dim[2]+4*tk, tk, dim[1]+2*dim[2]+4*tk, \
-                          dim[1]+tk, tk, 0, 0, drawing)
-                save(drawing)
-            else:
-                save(drawing)
-                drawing2 = new_drawing('box2.dxf')
-                rectangle(tk, tk, dim[1]+tk, dim[2]+tk, tk, 0, 0, drawing2)
-                rectangle(dim[1]+2*tk, tk, 2*(dim[1]+tk), dim[2]+tk, \
-                                       tk, 0, 0, drawing2)
-                save(drawing2)
+    rectangle(dim[1]+dim[2]+3*tk, tk, 2*dim[1]+dim[2]+3*tk, dim[0]+tk, tk,\
+          1, 1, drawing)
+    rectangle(2*dim[1]+dim[2]+4*tk, tk, 2*dim[1]+2*dim[2]+\
+          4*tk, dim[0]+tk, tk, 0, 1, drawing)
+    rectangle(tk, dim[0]+2*tk, dim[1]+tk, dim[0]+\
+              dim[2]+2*tk, tk, 0, 0, drawing)
+    rectangle(dim[1]+dim[2]+3*tk, dim[0]+2*tk, 2*dim[1]+\
+              dim[2]+3*tk, dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
+    save(drawing)
 
 
     
