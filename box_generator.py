@@ -5,15 +5,18 @@ Generator for Boxes with in either castled or uncastled style. Output as DXF.
 
 Usage:
   box_generator.py
-  box_generator.py <width> <height> <depth> <thickness> (--castled|--uncastled)
+  box_generator.py <width> <height> <depth> <thickness> [--castled|--uncastled] [--spacing=<mm>] [--lid=<type>] [--lid-side=<1|2|3>]
   box_generator.py (-h | --help)
   box_generator.py --version
 
 Options:
-  -c --castled      Castled box
-  -u --uncastled    Uncastled box
-  -h --help         Show this screen.
-  --version         Show version.
+  -c --castled              Castled box 
+  -u --uncastled            Uncastled box [default]
+  -s --spacing=<mm>         Select spacing between parts [default: thickness]
+  -l --lid=<type>           Establish one side as a lid (_i_nside or _o_utside) [default: None]
+  -i --lid-side=<1|2|3>     Select side for lid [default: 1]
+  -h --help                 Show this screen.
+  --version                 Show version.
   
 """
 
@@ -160,11 +163,11 @@ if __name__ == "__main__":
     
     if arguments['--castled']:
          shape = 'y'
-    elif arguments['--uncastled']:
-        shape = 'n'
     else:
-        shape = input("\nCastled? (y/n): ")
-    
+        shape = 'n'
+    # else:
+#         shape = input("\nCastled? (y/n): ")
+#     
     print('Processing input...')
         
     if (shape[0] == 'y'):
@@ -178,22 +181,35 @@ if __name__ == "__main__":
     dim.sort()
     dim.reverse()
     
+    print(arguments)
+    if arguments['--spacing'] != 'thickness':
+        spacing = tk + int(arguments['--spacing'])
+    else:
+        spacing = tk + tk 
+    
+            
 
     print('Generating output...')
     
 
     drawing = new_drawing('box.dxf')
-    rectangle(tk, tk, dim[1]+tk, dim[0]+tk, tk, 1, 1, drawing)
-    rectangle(dim[1]+2*tk, tk, dim[1]+dim[2]+2*tk, dim[0]+tk, tk, 0, 1, drawing)
+    # arranged from left to right and top to bottom
+
+    rectangle(tk, spacing + dim[0]+2*tk, dim[1]+tk, spacing + dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
     
-    rectangle(dim[1]+dim[2]+3*tk, tk, 2*dim[1]+dim[2]+3*tk, dim[0]+tk, tk,\
-          1, 1, drawing)
-    rectangle(2*dim[1]+dim[2]+4*tk, tk, 2*dim[1]+2*dim[2]+\
-          4*tk, dim[0]+tk, tk, 0, 1, drawing)
-    rectangle(tk, dim[0]+2*tk, dim[1]+tk, dim[0]+\
-              dim[2]+2*tk, tk, 0, 0, drawing)
-    rectangle(dim[1]+dim[2]+3*tk, dim[0]+2*tk, 2*dim[1]+\
-              dim[2]+3*tk, dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
+    rectangle(2*spacing + dim[1]+dim[2]+3*tk, spacing + dim[0]+2*tk, 2* spacing + 2*dim[1]+dim[2]+3*tk, spacing + dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
+
+    rectangle(tk, tk, dim[1]+tk, dim[0]+tk, tk, 1, 1, drawing)
+
+    rectangle(spacing + dim[1]+2*tk, tk, spacing + dim[1]+dim[2]+2*tk, dim[0]+tk, tk, 0, 1, drawing)
+
+    rectangle(2* spacing + dim[1]+dim[2]+3*tk, tk, 2*spacing + 2*dim[1]+dim[2]+3*tk, dim[0]+tk, tk, 1, 1, drawing)
+
+    rectangle(3* spacing + 2*dim[1]+dim[2]+4*tk, tk, 3* spacing+ 2*dim[1]+2*dim[2]+4*tk, dim[0]+tk, tk, 0, 1, drawing)
+ 
+
+
+
     save(drawing)
 
 
