@@ -187,6 +187,8 @@ if __name__ == "__main__":
     else:
         spacing = tk + tk 
     
+    if arguments['--lid'] != 'None':
+        if arguments['--lid'].lower().startswith('o'):
             
 
     print('Generating output...')
