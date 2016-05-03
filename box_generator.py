@@ -44,7 +44,7 @@ def add_vertex(fout, x, y):
 def end_polyline(fout):
     fout.write("SEQEND\n  0\n")
 
-def castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, lid, fout):
+def castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout):
     ny = 9
     dy = (p2y - p1y)/ny
     nx = 9
@@ -81,9 +81,10 @@ def castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, lid, fout):
     add_vertex(fout, p1x, p1y)
     end_polyline(fout)
 
-def pretty_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, lid, fout):
+def pretty_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout):
+
     begin_polyline(fout)
-    #add_vertex(fout, p1x, p1y)
+    add_vertex(fout, p1x, p1y)
     t = lr%2
     x = p1x - t*th
     add_vertex(fout, x, p1y)
@@ -162,19 +163,19 @@ if __name__ == "__main__":
         tk = float(input("\nThickness of Material: "))
     
     if arguments['--castled']:
-         shape = 'y'
+         shape = 'c'
     else:
-        shape = 'n'
+        shape = 'uc'
     # else:
 #         shape = input("\nCastled? (y/n): ")
 #     
     print('Processing input...')
         
-    if (shape[0] == 'y'):
-        rectangle = lambda p1x, p1y, p2x, p2y, th, lr, tb, lid, fout: \
-                    castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, lid, fout)
+    if (shape[0] == 'c' or shape[0] == 'y'):
+        rectangle = lambda p1x, p1y, p2x, p2y, th, lr, tb, fout: \
+                    castled_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout)
     else:
-        rectangle = lambda p1x, p1y, p2x, p2y, th, lr, tb, lid, fout: \
+        rectangle = lambda p1x, p1y, p2x, p2y, th, lr, tb, fout: \
                     pretty_rectangle(p1x, p1y, p2x, p2y, th, lr, tb, fout)
     
     dim = [w, d, h]
@@ -189,9 +190,9 @@ if __name__ == "__main__":
     lid = []
     if arguments['--lid'] != 'None':
         if arguments['--lid'].lower().startswith('o'):
-            lid = ['outside', int(arguments['--lid-side'])]
+            lid_type, lid_num = 'outside', int(arguments['--lid-side'])
         else:
-            lid = ['inside', int(arguments['--lid-side'])]
+            lid_type, lid_num = 'inside', int(arguments['--lid-side'])
             
 
     print('Generating output...')
@@ -199,8 +200,8 @@ if __name__ == "__main__":
 
     drawing = new_drawing('box.dxf')
     # arranged from left to right and top to bottom
-
-    rectangle(tk, spacing + dim[0]+2*tk, dim[1]+tk, spacing + dim[0]+dim[2]+2*tk, tk, 0, 0, lid, drawing)
+    
+    rectangle(tk, spacing + dim[0]+2*tk, dim[1]+tk, spacing + dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
     
     rectangle(2*spacing + dim[1]+dim[2]+3*tk, spacing + dim[0]+2*tk, 2* spacing + 2*dim[1]+dim[2]+3*tk, spacing + dim[0]+dim[2]+2*tk, tk, 0, 0, drawing)
 
